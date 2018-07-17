@@ -4,14 +4,14 @@ const app = new Koa();
 const fs = require('fs');
 const path = require('path');
 const router = require('./routes');
-// const cors = require('@koa/cors');
+const cors = require('@koa/cors');
 const config = require('../config');
 const axios = require('axios');
 
 // 设置请求域名
 axios.defaults.baseURL = config.client.baseURL;
 
-// app.use(cors());
+app.use(cors());
 
 // const html = fs.readFileSync(path.resolve(__dirname, '../dist/index.html'), 'utf8');
 // const tpl = html.split('<!-- ssr -->');
@@ -26,6 +26,35 @@ axios.defaults.baseURL = config.client.baseURL;
 
 // app.use(require('koa-static')(path.resolve(__dirname, '../dist')));
 
+let render;
+let tpl;
+let loadMap;
+app.use(async (ctx, next) => {
+  if (!render) {
+    return (ctx.body = '等待构建...');
+  }
+
+  if (ctx.path === '/' || ctx.path === '/one' || ctx.path === '/two') {
+    return (ctx.body = await render(tpl, ctx.path, loadMap));
+  }
+  await next();
+});
+
+require('../config/ssr-dev-middle')(app, (bundle, str, map) => {
+  // console.log(tpl);
+  render = bundle;
+  loadMap = map;
+  buildTpl(str);
+});
+
+function buildTpl(str) {
+  const strArr = str.split('<!-- ssr -->');
+  strArr[1] = strArr[1].replace(
+    '<!-- script -->',
+    '<script>window.ssr=true</script><!-- script -->',
+  );
+  tpl = strArr;
+}
 
 // app.use(async (ctx, next) => {});
 

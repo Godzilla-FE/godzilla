@@ -39,7 +39,7 @@ module.exports = function setupDevServer(app, cb) {
       }
     }
   });
-
+  return 
   // hot middleware
   app.use(require('./middleware/hotMiddleware.js')(clientCompiler));
 
@@ -63,7 +63,7 @@ module.exports = function setupDevServer(app, cb) {
     try {
       ssr = require('../dist/ssr_bundle');
     } catch (error) {
-      console.error(error);
+      console.error('server-entry:\n', error);
       return;
     }
 
