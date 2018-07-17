@@ -40,7 +40,7 @@ app.use(async (ctx, next) => {
   await next();
 });
 
-require('../config/ssr-dev-middle')(app, (bundle, str, map) => {
+require('../build/ssr-dev-middle')(app, (bundle, str, map) => {
   // console.log(tpl);
   render = bundle;
   loadMap = map;

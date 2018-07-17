@@ -2,7 +2,7 @@ let render;
 let tpl;
 let loadMap;
 
-require('../config/ssr-dev-middle')(app, (bundle, str, map) => {
+require('../build/ssr-dev-middle')(app, (bundle, str, map) => {
   // console.log(tpl);
   render = bundle;
   loadMap = map;

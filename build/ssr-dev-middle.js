@@ -39,7 +39,6 @@ module.exports = function setupDevServer(app, cb) {
       }
     }
   });
-  return 
   // hot middleware
   app.use(require('./middleware/hotMiddleware.js')(clientCompiler));
 

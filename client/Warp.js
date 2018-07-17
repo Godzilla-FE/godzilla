@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 function getDisplayName(WrappedComponent) {
   return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 }
+const ssrData = window.ssrData || {};
 
 function warpAsyncData(WrappedComponent, dataId) {
   return class Warp extends Component {
@@ -11,7 +12,7 @@ function warpAsyncData(WrappedComponent, dataId) {
     };
     constructor(props) {
       super(props);
-      if (ssrData[dataId]) {  
+      if (ssrData[dataId]) {
         // 删除保存的数据，这样路由切换可以请求新的数据而不是旧的脏数据
         delete ssrData[dataId];
       } else {

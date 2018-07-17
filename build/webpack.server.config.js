@@ -15,6 +15,10 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      '@': path.resolve(__dirname, '../client'),
+      'godzilla': path.resolve(__dirname, '../packages')
+    },
   },
   module: {
     rules: [
@@ -46,6 +50,20 @@ module.exports = {
             plugins: ['dynamic-import-node'],
           },
         },
+      },
+      {
+        test: /\.less$/,
+        use: [
+          {
+            loader: 'style-loader', // creates style nodes from JS strings
+          },
+          {
+            loader: 'css-loader', // translates CSS into CommonJS
+          },
+          {
+            loader: 'less-loader', // compiles Less to CSS
+          },
+        ],
       },
     ],
   },

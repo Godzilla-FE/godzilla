@@ -8,8 +8,6 @@ import { renderRoutes, matchRoutes } from 'react-router-config';
 import rawRoutes from './routes';
 import http from 'axios';
 
-
-
 function warpAsyncData(WrappedComponent, dataId) {
   return class Warp extends Component {
     static displayName = `warpAsyncData`;
@@ -20,7 +18,8 @@ function warpAsyncData(WrappedComponent, dataId) {
   };
 }
 
-const dataList = {};
+// TODO: ssr并发时，如何处理数据
+let dataList = {};
 let id = 0;
 function warpRoutes(routes) {
   for (const route of routes) {
@@ -36,8 +35,6 @@ function warpRoutes(routes) {
 
 const loadBranchData = (url, routes) => {
   const branch = matchRoutes(routes, url);
-  // console.log(branch);
-
   const promises = branch.map(({ route, match }) => {
     return route.queryAsyncData
       ? route.queryAsyncData(match).then((data) => {
@@ -68,6 +65,7 @@ export async function render(tpl, url, stats) {
   // const html = ''
 
   let bundles = getBundles(stats, modules);
+
   // 将按需加载的js文件引入
   let str = tpl[1].replace('<!-- script -->', function() {
     return bundles
@@ -84,6 +82,8 @@ export async function render(tpl, url, stats) {
       .concat([`<script>window.ssrData=${JSON.stringify(dataList)}</script>`])
       .join('\n');
   });
+  // 清空请求数据
+  dataList = {};
 
   return `${tpl[0]}${html}${str}`;
 }
