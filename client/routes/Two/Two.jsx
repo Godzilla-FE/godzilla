@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import http from 'axios';
+import './two.less';
 export class Two extends Component {
   state = {
     data: null,
@@ -18,7 +19,7 @@ export class Two extends Component {
   }
 
   render() {
-    return <div>twoxx,data1:{this.props.a}</div>;
+    return <div className="two">twoxx,data1:{this.props.a}</div>;
   }
 }
 

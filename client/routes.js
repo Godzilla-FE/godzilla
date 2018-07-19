@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import App from './App';
-import One from './One';
 import Two from './routes/Two';
+import One from './routes/One';
 
 export default [
   {
     component: App,
-    routes: [
-      {
-        path: '/one',
-        exact: true,
-        component: One,
-      },
-      Two,
-    ],
+    routes: [One, Two],
   },
 ];

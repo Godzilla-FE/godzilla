@@ -12,12 +12,13 @@ module.exports = {
     libraryTarget: 'commonjs2',
     path: path.resolve(__dirname, '../dist'),
     filename: 'ssr_bundle.js',
+    publicPath: '/',
   },
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
       '@': path.resolve(__dirname, '../client'),
-      'godzilla': path.resolve(__dirname, '../packages')
+      godzilla: path.resolve(__dirname, '../packages'),
     },
   },
   module: {
@@ -53,15 +54,18 @@ module.exports = {
       },
       {
         test: /\.less$/,
+        loader: 'null-loader',
+      },
+      {
+        test: [/\.bmp$/, /\.jpe?g$/, /\.png$/],
         use: [
           {
-            loader: 'style-loader', // creates style nodes from JS strings
-          },
-          {
-            loader: 'css-loader', // translates CSS into CommonJS
-          },
-          {
-            loader: 'less-loader', // compiles Less to CSS
+            loader: require.resolve('url-loader'),
+            options: {
+              emitFile: false,
+              limit: 10000,
+              name: 'static/media/[name].[hash:8].[ext]',
+            },
           },
         ],
       },

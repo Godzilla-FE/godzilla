@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import http from 'axios';
 import { Route, Switch, Link } from 'react-router-dom';
-import One from './One';
 import { hot } from 'react-hot-loader';
 import Loadable from 'react-loadable';
 import { renderRoutes } from 'react-router-config';
+import './app.less'
 
 export class App extends Component {
 

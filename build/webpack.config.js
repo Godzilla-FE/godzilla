@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: 'development',
@@ -18,7 +19,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     alias: {
       '@': path.resolve(__dirname, '../client'),
-      'godzilla': path.resolve(__dirname, '../packages')
+      godzilla: path.resolve(__dirname, '../packages'),
     },
   },
   module: {
@@ -29,7 +30,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            cacheDirectory: true
+            cacheDirectory: true,
           },
         },
       },
@@ -37,7 +38,12 @@ module.exports = {
         test: /\.less$/,
         use: [
           {
-            loader: 'style-loader', // creates style nodes from JS strings
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              // you can specify a publicPath here
+              // by default it use publicPath in webpackOptions.output
+              // publicPath: '../',
+            },
           },
           {
             loader: 'css-loader', // translates CSS into CommonJS
@@ -46,6 +52,14 @@ module.exports = {
             loader: 'less-loader', // compiles Less to CSS
           },
         ],
+      },
+      {
+        test: [/\.bmp$/, /\.jpe?g$/, /\.png$/],
+        loader: require.resolve('url-loader'),
+        options: {
+          limit: 10000,
+          name: 'static/media/[name].[hash:8].[ext]',
+        },
       },
     ],
   },
@@ -76,6 +90,12 @@ module.exports = {
     }),
     new ReactLoadablePlugin({
       filename: path.resolve(__dirname, '../dist/react-loadable.json'),
+    }),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: 'css/[name].css',
+      chunkFilename: 'css/[id].css',
     }),
   ],
 };

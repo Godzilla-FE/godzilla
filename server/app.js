@@ -15,17 +15,24 @@ app.use(cors());
 
 // const html = fs.readFileSync(path.resolve(__dirname, '../dist/index.html'), 'utf8');
 // const tpl = html.split('<!-- ssr -->');
-// tpl[1] = tpl[1].replace('<!-- script -->', '<script>window.ssr=true</script>');
+// const loadMap = require('../dist/react-loadable.json');
+// tpl[1] = tpl[1].replace(
+//       '<!-- script -->',
+//       '<script>window.ssr=true</script><!-- script -->',
+//     );;
 
 // app.use(async (ctx, next) => {
-//   if (ctx.path === '/') {
-//     return (ctx.body = `${tpl[0]}${render()}${tpl[1]}`);
+//   if (ctx.path === '/' || ctx.path === '/one' || ctx.path === '/two') {
+//     return (ctx.body = await render(tpl, ctx.path, loadMap));
 //   }
 //   await next();
 // });
 
 // app.use(require('koa-static')(path.resolve(__dirname, '../dist')));
 
+/**
+ * 开发配置
+ */
 let render;
 let tpl;
 let loadMap;
@@ -44,17 +51,18 @@ require('../build/ssr-dev-middle')(app, (bundle, str, map) => {
   // console.log(tpl);
   render = bundle;
   loadMap = map;
-  buildTpl(str);
+  // buildTpl(str);
+  tpl = str;
 });
 
-function buildTpl(str) {
-  const strArr = str.split('<!-- ssr -->');
-  strArr[1] = strArr[1].replace(
-    '<!-- script -->',
-    '<script>window.ssr=true</script><!-- script -->',
-  );
-  tpl = strArr;
-}
+// function buildTpl(str) {
+//   const strArr = str.split('<!-- ssr -->');
+//   strArr[1] = strArr[1].replace(
+//     '<!-- script -->',
+//     '<script>window.ssr=true</script><!-- script -->',
+//   );
+//   tpl = strArr;
+// }
 
 // app.use(async (ctx, next) => {});
 
