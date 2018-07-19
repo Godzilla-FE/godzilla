@@ -1,8 +1,6 @@
 const Koa = require('koa');
 const app = new Koa();
-// const { render } = require('../dist/ssr_bundle');
-const fs = require('fs');
-const path = require('path');
+
 const router = require('./routes');
 const cors = require('@koa/cors');
 const config = require('../config');
@@ -11,60 +9,14 @@ const axios = require('axios');
 // 设置请求域名
 axios.defaults.baseURL = config.client.baseURL;
 
-app.use(cors());
-
-// const html = fs.readFileSync(path.resolve(__dirname, '../dist/index.html'), 'utf8');
-// const tpl = html.split('<!-- ssr -->');
-// const loadMap = require('../dist/react-loadable.json');
-// tpl[1] = tpl[1].replace(
-//       '<!-- script -->',
-//       '<script>window.ssr=true</script><!-- script -->',
-//     );;
-
-// app.use(async (ctx, next) => {
-//   if (ctx.path === '/' || ctx.path === '/one' || ctx.path === '/two') {
-//     return (ctx.body = await render(tpl, ctx.path, loadMap));
-//   }
-//   await next();
-// });
-
-// app.use(require('koa-static')(path.resolve(__dirname, '../dist')));
-
-/**
- * 开发配置
- */
-let render;
-let tpl;
-let loadMap;
-app.use(async (ctx, next) => {
-  if (!render) {
-    return (ctx.body = '等待构建...');
-  }
-
-  if (ctx.path === '/' || ctx.path === '/one' || ctx.path === '/two') {
-    return (ctx.body = await render(tpl, ctx.path, loadMap));
-  }
-  await next();
-});
-
-require('../build/ssr-dev-middle')(app, (bundle, str, map) => {
-  // console.log(tpl);
-  render = bundle;
-  loadMap = map;
-  // buildTpl(str);
-  tpl = str;
-});
-
-// function buildTpl(str) {
-//   const strArr = str.split('<!-- ssr -->');
-//   strArr[1] = strArr[1].replace(
-//     '<!-- script -->',
-//     '<script>window.ssr=true</script><!-- script -->',
-//   );
-//   tpl = strArr;
-// }
-
-// app.use(async (ctx, next) => {});
+if (process.env.NODE_ENV === 'development') {
+  const { devServer, init } = require('./devServer');
+  app.use(devServer);
+  init(app);
+} else {
+  app.use(require('./serverRender'));
+  app.use(require('koa-static')(path.resolve(__dirname, '../dist')));
+}
 
 app.use(router.routes()).use(router.allowedMethods());
 

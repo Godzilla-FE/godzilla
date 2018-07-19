@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import reactLoadable from 'react-loadable';
 
-export default function Loadable(opts) {
+function Dynamic(opts) {
   const LoadableComponent = reactLoadable(opts);
   LoadableComponent.queryAsyncData = async () => {
     const { default: component } = await opts.loader();
@@ -13,3 +13,7 @@ export default function Loadable(opts) {
   };
   return LoadableComponent;
 }
+Dynamic.preloadAll = reactLoadable.preloadAll;
+Dynamic.preloadReady = reactLoadable.preloadReady;
+
+export default Dynamic;

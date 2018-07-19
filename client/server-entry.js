@@ -89,7 +89,7 @@ export async function render(tpl, url, stats) {
           console.error('不支持的bundle', bundle);
         })
         .concat([`<script>window.ssrData=${JSON.stringify(dataList)};window.ssr=true;</script>`])
-        .join('\n')
+        .join('')
     );
   });
 

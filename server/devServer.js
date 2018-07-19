@@ -1,24 +1,13 @@
+const devMiddle = require('../build/ssr-dev-middle');
+
+/**
+ * 开发配置
+ */
 let render;
 let tpl;
 let loadMap;
 
-require('../build/ssr-dev-middle')(app, (bundle, str, map) => {
-  // console.log(tpl);
-  render = bundle;
-  loadMap = map;
-  buildTpl(str);
-});
-
-function buildTpl(str) {
-  const strArr = str.split('<!-- ssr -->');
-  strArr[1] = strArr[1].replace(
-    '<!-- script -->',
-    '<script>window.ssr=true</script><!-- script -->',
-  );
-  tpl = strArr;
-}
-
-module.exports = async (ctx, next) => {
+async function devServer(ctx, next) {
   if (!render) {
     return (ctx.body = '等待构建...');
   }
@@ -27,4 +16,16 @@ module.exports = async (ctx, next) => {
     return (ctx.body = await render(tpl, ctx.path, loadMap));
   }
   await next();
+}
+function devServerInit(app) {
+  devMiddle(app, (bundle, str, map) => {
+    render = bundle;
+    loadMap = map;
+    tpl = str;
+  });
+}
+
+module.exports = {
+  init: devServerInit,
+  devServer,
 };

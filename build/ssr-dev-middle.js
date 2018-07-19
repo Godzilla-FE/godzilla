@@ -28,10 +28,10 @@ module.exports = function setupDevServer(app, cb) {
     stats.warnings.forEach((err) => console.warn(err));
     const fs = devMiddleware.fileSystem;
     const filePath = path.join(clientConfig.output.path, 'index.html');
-    const mapPath = path.join(clientConfig.output.path, 'react-loadable.json');
+    const mapPath = path.join(clientConfig.output.path, 'godzilla-dynamic.json');
     if (fs.existsSync(filePath)) {
       template = fs.readFileSync(filePath, 'utf-8');
-      loadmap = JSON.parse(realFs.readFileSync(mapPath, 'utf-8'));
+      loadmap = JSON.parse(fs.readFileSync(mapPath, 'utf-8'));
 
       console.log(`静态文件编译完毕，耗时:${stats.time}ms`);
       if (bundle) {

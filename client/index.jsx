@@ -2,7 +2,7 @@ import React from 'react';
 import { render, hydrate } from 'react-dom';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
-import Loadable from 'react-loadable';
+import Loadable from 'godzilla/Dynamic';
 import { renderRoutes } from 'react-router-config';
 import routes from './routes';
 import warpRoute from './Warp';

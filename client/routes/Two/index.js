@@ -1,5 +1,5 @@
 import React from 'react';
-import Loadable from 'godzilla/loadable';
+import Loadable from 'godzilla/Dynamic';
 const Two = Loadable({
   loader: () => import('./Two'),
   loading() {

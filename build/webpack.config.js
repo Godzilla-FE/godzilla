@@ -3,7 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const { ReactLoadablePlugin } = require('react-loadable/webpack');
+const { DynamicLoadablePlugin } = require('../packages/Dynamic/webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
@@ -88,8 +88,8 @@ module.exports = {
         EXEC_ENV: 'BROWSER',
       }),
     }),
-    new ReactLoadablePlugin({
-      filename: path.resolve(__dirname, '../dist/react-loadable.json'),
+    new DynamicLoadablePlugin({
+      filename: 'godzilla-dynamic.json',
     }),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
