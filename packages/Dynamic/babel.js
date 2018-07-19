@@ -3,7 +3,7 @@ module.exports = function({ types: t, template }) {
     visitor: {
       ImportDeclaration(path) {
         let source = path.node.source.value;
-        if (source !== 'godzilla/Dynamic') return;
+        if (source !== 'godzilla/dynamic') return;
         
         let defaultSpecifier = path.get('specifiers').find((specifier) => {
           return specifier.isImportDefaultSpecifier();
