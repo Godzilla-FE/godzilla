@@ -36,8 +36,7 @@ module.exports = {
         commons: {
           chunks: 'async',
           minChunks: 2,
-          maxInitialRequests: 5,
-          minSize: 10000,
+          minSize: 5000,
         },
       },
     },

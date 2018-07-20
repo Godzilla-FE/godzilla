@@ -1,7 +1,7 @@
 import React from 'react';
 import Loadable from 'godzilla/dynamic';
 const Two = Loadable({
-  loader: () => import('./Two'),
+  loader: () => import(/* webpackChunkName: "Two" */'./Two'),
   loading() {
     return <div>Loading...</div>;
   },
