@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const baseConf = require('./baseConf');
 
 module.exports = {
   mode: 'development',
@@ -10,74 +11,21 @@ module.exports = {
   externals: [nodeExternals()],
   output: {
     libraryTarget: 'commonjs2',
-    path: path.resolve(__dirname, '../dist'),
+    path: baseConf.config.outputPath,
     filename: 'ssr_bundle.js',
     publicPath: '/',
   },
-  resolve: {
-    extensions: ['.js', '.jsx'],
-    alias: {
-      '@': path.resolve(__dirname, '../client'),
-      godzilla: path.resolve(__dirname, '../packages'),
-    },
-  },
+  resolve: baseConf.resolve,
   module: {
     rules: [
+      baseConf.jsRule,
+      baseConf.imgRule,
+      baseConf.otherRule,
       {
-        test: /\.(js|jsx)$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: true,
-            presets: [
-              [
-                '@babel/preset-env',
-                {
-                  targets: {
-                    node: '8.9.4',
-                  },
-                  modules: false,
-                },
-              ],
-              [
-                '@babel/stage-2',
-                {
-                  decoratorsLegacy: true,
-                },
-              ],
-              '@babel/preset-react',
-            ],
-            plugins: ['dynamic-import-node'],
-          },
-        },
-      },
-      {
-        test: /\.less$/,
+        test: /\.(less|css)$/,
         loader: 'null-loader',
-      },
-      {
-        test: [/\.bmp$/, /\.jpe?g$/, /\.png$/],
-        use: [
-          {
-            loader: require.resolve('url-loader'),
-            options: {
-              emitFile: false,
-              limit: 10000,
-              name: 'static/media/[name].[hash:8].[ext]',
-            },
-          },
-        ],
       },
     ],
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': JSON.stringify({
-        NODE_ENV: process.env.NODE_ENV,
-        EXEC_ENV: 'NODE',
-        BASE_URL: 'http://127.0.0.1:3001',
-      }),
-    }),
-  ],
+  plugins: [baseConf.pluginDefinePlugin],
 };

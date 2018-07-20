@@ -1,7 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
 const MFS = require('memory-fs');
-const clientConfig = require('./webpack.config');
+process.env.TARGET = 'CLIENT';
+const clientConfig = require('./webpack.dev.conf');
+// 保证服务端配置正确
+process.env.TARGET = 'NODE';
+delete require.cache[require.resolve('./baseConf.js')];
 const serverConfig = require('./webpack.server.config');
 const realFs = require('fs');
 

@@ -7,15 +7,6 @@ const Two = Loadable({
   },
 });
 
-Two.queryAsyncData = async () => {
-  const { default: component } = await import('./Two');
-  if (component.queryAsyncData) {
-    const data = await component.queryAsyncData();
-    return data;
-  }
-  return {};
-};
-
 export default {
   path: '/two',
   component: Two,

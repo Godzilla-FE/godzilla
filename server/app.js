@@ -3,7 +3,7 @@ const app = new Koa();
 const router = require('./routes');
 const cors = require('@koa/cors');
 const config = require('../config');
-
+const path = require('path');
 
 if (process.env.NODE_ENV === 'development') {
   const { devServer, init } = require('./devServer');

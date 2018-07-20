@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import http from '../../tools/http';
 import './two.less';
+import '../test'
+
 export class Two extends Component {
   state = {
     data: null,
