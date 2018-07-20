@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import http from 'axios';
+import http from '../../tools/http';
 import './two.less';
 export class Two extends Component {
   state = {

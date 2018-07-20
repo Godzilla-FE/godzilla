@@ -7,7 +7,7 @@ const { DynamicLoadablePlugin } = require('../packages/dynamic/webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   devtool: 'source-map',
   entry: path.resolve(__dirname, '../client/index.jsx'),
   output: {
@@ -86,6 +86,7 @@ module.exports = {
       'process.env': JSON.stringify({
         NODE_ENV: process.env.NODE_ENV,
         EXEC_ENV: 'BROWSER',
+        BASE_URL: '',
       }),
     }),
     new DynamicLoadablePlugin({

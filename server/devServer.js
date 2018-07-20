@@ -13,7 +13,7 @@ async function devServer(ctx, next) {
   }
 
   if (ctx.path === '/' || ctx.path === '/one' || ctx.path === '/two') {
-    return (ctx.body = await render(tpl, ctx.path, loadMap));
+    return (ctx.body = await render(tpl, ctx.url, loadMap));
   }
   await next();
 }

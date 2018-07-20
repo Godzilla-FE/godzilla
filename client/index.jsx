@@ -7,6 +7,7 @@ import { renderRoutes } from 'react-router-config';
 import routes from './routes';
 import warpRoute from './Warp';
 
+
 const Index = () => <BrowserRouter>{renderRoutes(warpRoute(routes))}</BrowserRouter>;
 
 if (window.ssr) {

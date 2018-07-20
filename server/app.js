@@ -1,13 +1,9 @@
 const Koa = require('koa');
 const app = new Koa();
-
 const router = require('./routes');
 const cors = require('@koa/cors');
 const config = require('../config');
-const axios = require('axios');
 
-// 设置请求域名
-axios.defaults.baseURL = config.client.baseURL;
 
 if (process.env.NODE_ENV === 'development') {
   const { devServer, init } = require('./devServer');

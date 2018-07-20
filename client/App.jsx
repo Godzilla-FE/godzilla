@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import http from 'axios';
+import http from './tools/http';
 import { Route, Switch, Link } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
 import Loadable from 'godzilla/dynamic';

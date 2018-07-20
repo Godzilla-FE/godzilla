@@ -76,6 +76,7 @@ module.exports = {
       'process.env': JSON.stringify({
         NODE_ENV: process.env.NODE_ENV,
         EXEC_ENV: 'NODE',
+        BASE_URL: 'http://127.0.0.1:3001',
       }),
     }),
   ],
