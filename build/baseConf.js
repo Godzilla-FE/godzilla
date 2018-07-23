@@ -52,7 +52,7 @@ module.exports = function getConfig(isNode, isDev) {
           ],
           '@babel/preset-react',
         ],
-        plugins: ['dynamic-import-node'],
+        plugins: ['dynamic-import-node', './packages/dynamic/babel.js'],
       }
     : {};
 
@@ -64,6 +64,7 @@ module.exports = function getConfig(isNode, isDev) {
       options: {
         cacheDirectory: true,
         ...babelLoaderOpts,
+        babelrc: !isNode,
       },
     },
   };

@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import http from './tools/http';
-import { Route, Switch, Link } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
 import Loadable from 'godzilla/dynamic';
-import { renderRoutes } from 'react-router-config';
-import './app.less'
+import { renderRoutes, Link } from 'godzilla/router';
+import './app.less';
 
 export class App extends Component {
-
   static queryAsyncData = async () => {
     const { data } = await http.get('/test');
     // this.setState({
@@ -24,10 +22,6 @@ export class App extends Component {
     return (
       <div>
         data:{this.props.a}
-        {/* <Switch>
-          <Route path="/one" component={One} />
-          <Route path="/two" component={Two} />
-        </Switch>*/}
         {renderRoutes(this.props.route.routes)}
         <Link to="/one">去one4</Link>
         <Link to="/two">去two1</Link>

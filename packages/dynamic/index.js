@@ -15,5 +15,6 @@ function Dynamic(opts) {
 }
 Dynamic.preloadAll = reactLoadable.preloadAll;
 Dynamic.preloadReady = reactLoadable.preloadReady;
+Dynamic.Capture = reactLoadable.Capture;
 
 export default Dynamic;

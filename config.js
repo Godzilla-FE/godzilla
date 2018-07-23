@@ -1,3 +1,4 @@
+// TODO: hash路由支持
 module.exports = {
   client:{
 

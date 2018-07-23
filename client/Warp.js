@@ -6,7 +6,7 @@ const ssrData = window.ssrData || {};
 
 function warpAsyncData(WrappedComponent, dataId) {
   return class Warp extends Component {
-    static displayName = `warpAsyncData${getDisplayName(WrappedComponent)}`;
+    static displayName = `warpGodzillaRoute${getDisplayName(WrappedComponent)}`;
     state = {
       data: ssrData[dataId] || {},
     };

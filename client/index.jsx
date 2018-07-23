@@ -1,14 +1,13 @@
 import React from 'react';
 import { render, hydrate } from 'react-dom';
 import App from './App';
-import { BrowserRouter } from 'react-router-dom';
+// import { BrowserRouter } from 'react-router-dom';
 import Loadable from 'godzilla/dynamic';
-import { renderRoutes } from 'react-router-config';
+import Route, { renderRoutes } from 'godzilla/router';
+// import { renderRoutes } from 'react-router-config';
 import routes from './routes';
-import warpRoute from './Warp';
 
-
-const Index = () => <BrowserRouter>{renderRoutes(warpRoute(routes))}</BrowserRouter>;
+const Index = () => <Route>{renderRoutes(routes)}</Route>;
 
 if (window.ssr) {
   Loadable.preloadReady().then(() => {
