@@ -1,7 +1,9 @@
 const webpack = require('webpack');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const baseConf = require('./baseConf');
+const config = require('./baseConf');
+
+const baseConf = config(true, true);
 
 module.exports = {
   mode: 'development',

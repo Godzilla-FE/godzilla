@@ -1,7 +1,9 @@
-const baseConf = require('./baseConf');
+const config = require('./baseConf');
 const webpack = require('webpack');
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+const baseConf = config(false, false);
 
 module.exports = {
   mode: 'development',

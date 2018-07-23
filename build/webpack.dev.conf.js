@@ -1,6 +1,9 @@
-const baseConf = require('./baseConf');
+const config = require('./baseConf');
 const webpack = require('webpack');
 const path = require('path');
+
+const baseConf = config(false, true);
+
 module.exports = {
   mode: 'development',
   devtool: 'eval-source-map',

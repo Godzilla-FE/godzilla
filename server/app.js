@@ -1,9 +1,11 @@
 const Koa = require('koa');
 const app = new Koa();
 const router = require('./routes');
-const cors = require('@koa/cors');
+// const cors = require('@koa/cors');
 const config = require('../config');
 const path = require('path');
+
+// app.use(cors())
 
 if (process.env.NODE_ENV === 'development') {
   const { devServer, init } = require('./devServer');

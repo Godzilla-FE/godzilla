@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import img from './img/1.png';
 import d from './img/d.png';
 import './one.less'
-import '../test'
 
 export class One extends Component {
   render() {
