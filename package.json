@@ -17,7 +17,6 @@
   "dependencies": {
     "@koa/cors": "^2.2.2",
     "axios": "^0.18.0",
-    "hoist-non-react-statics": "^2.5.5",
     "koa": "^2.5.1",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",

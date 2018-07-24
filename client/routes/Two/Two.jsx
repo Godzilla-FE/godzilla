@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import http from '../../tools/http';
 import './two.less';
+import { hot } from 'react-hot-loader'
 
 export class Two extends Component {
   state = {
@@ -24,4 +25,4 @@ export class Two extends Component {
   }
 }
 
-export default Two;
+export default hot(module)(Two);

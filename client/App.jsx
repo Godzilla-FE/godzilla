@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import http from './tools/http';
-import { hot } from 'react-hot-loader';
 import Loadable from 'godzilla/dynamic';
 import { renderRoutes, Link } from 'godzilla/router';
 import './app.less';
 
-export class App extends Component {
+export default class App extends Component {
   static queryAsyncData = async () => {
     const { data } = await http.get('/test');
     // this.setState({
@@ -30,4 +29,3 @@ export class App extends Component {
   }
 }
 
-export default hot(module)(App);

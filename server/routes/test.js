@@ -11,8 +11,10 @@ function delay(num) {
 
 router.get('/test', async (ctx, next) => {
   // await delay(1000);
+  const num = parseInt(ctx.cookies.get('num') || 1);
+  ctx.cookies.set('num', num + 1);
   ctx.body = {
-    a: 1111,
+    a: num,
   };
 });
 
